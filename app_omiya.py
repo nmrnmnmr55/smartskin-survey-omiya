@@ -43,6 +43,22 @@ WORKSHEET_NAME = 'Omiya'
 REVIEW_URL = None
 # ▲▲▲ 院別設定ここまで ▲▲▲
 
+def show_review_request():
+    """Google口コミのお願い。満足度に関係なく、全員に同じ文面・同じリンクを出す。
+
+    2026-09-15: 特典（プレゼント）と、満足度に応じた出し分けを全院で廃止した。再導入しない。
+    理由: Googleのポリシーはインセンティブ付き口コミと選別的な依頼を禁止しており、
+    八丁堀院のプロフィールが同日に制限（5つ星43件削除・30日投稿停止）を受けたため。
+    REVIEW_URL が None の院（口コミURL未発番・投稿制限中）では何も出さない。
+    """
+    if not REVIEW_URL:
+        return
+    st.write("Smart skin CLINICは、患者様のお声とともに育ってきたクリニックです。")
+    st.write("率直なご感想を、Googleのクチコミで教えていただけると嬉しいです。")
+    st.write("ご意見はひとつ残らず読ませていただき、次のご来院に活かしてまいります。")
+    st.markdown(f"[クチコミを書く]({REVIEW_URL})")
+
+
 # カスタムCSSの適用
 st.markdown("""
 <style>
@@ -153,18 +169,9 @@ def show_page_1():
         st.rerun()
 
 def show_page_2():
-    st.write("貴重なご意見をありがとうございます！")
+    st.write("ご回答ありがとうございました！")
     st.write("いただいたお声は、より良いサービスの提供に活かしてまいります。")
-    st.write("引き続きどうぞよろしくお願いいたします。")
-
-    # 2026-07-31: 口コミ誘導を一時停止している（REVIEW_URL = None）。
-    # 八丁堀のGBPがオーナー確認（動画）を通過すると、Googleが口コミURLを発番する。
-    # 発番後の再開手順は本ファイル冒頭のコメントと
-    # ../README_顧客満足度システム_全体設計.md「Google口コミリンクの再開手順」を参照。
-    if REVIEW_URL:
-        st.write("★以下に口コミ記載＆スタッフ提示で、サンソリット スキンピールバー(約3,000円相当)を特別プレゼント！★")
-        st.markdown(f"[口コミ記入ページを開く]({REVIEW_URL})")
-        st.write("詳細はスタッフまでお尋ねください。")
+    show_review_request()
 
 def show_page_3():
     st.write("この度、満足いただけなかったこと誠に申し訳ございません。心よりお詫び申し上げます。")
@@ -182,6 +189,7 @@ def show_page_4():
     st.write("確かに受領いたしました。")
     st.write("頂いた貴重なご意見をふまえ、少しでも良いサービスを提供できるように改善に努めてまいります。")
     st.write("引き続きどうぞよろしくお願いいたします。")
+    show_review_request()
 
     if st.button("最初に戻る", key="return_button"):
         st.session_state.page = 1  # 最初のページに戻る
