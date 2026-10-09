@@ -16,8 +16,8 @@ WORKSHEET_NAME = 'Omiya'
 # Google口コミ誘導リンク。
 #
 # None にすると高評価ページで口コミ誘導を一切出さず、お礼のみを表示する。
-# 2026-07-31 時点の大宮は None。理由は、大宮のGBPが未作成のため。
-# Googleが口コミURLをまだ発番していないため。壊れたリンクを出さない。
+# 2026-07-31〜10-09 は None（大宮のGBPが未確認で口コミURLが未発番のため）。
+# 2026-10-09: GBPのオーナー確認が通り、check_review_url.py で発番済みURLを取得して設定した。
 #
 # ⚠️ **Googleマップの検索型URL等で代用してはならない。**
 #    未公開の院名で検索すると既存院（神保町）に解決し、その院の口コミが他院に付く（2026-07-31 八丁堀で実測）。
@@ -30,17 +30,17 @@ WORKSHEET_NAME = 'Omiya'
 #        https://search.google.com/local/writereview?placeid=... が出れば発番済み。
 #        「(なし)」ならまだ認証が通っていないので、何もせず待つ。
 #   2. 出力されたURLを、下の REVIEW_URL に文字列として設定する（None を置き換える）。
-#   3. GitHub リポジトリ nmrnmnmr55/smartskin-survey-omiya の app_hacchobori.py へ push する。
+#   3. GitHub リポジトリ nmrnmnmr55/smartskin-survey-omiya の app_omiya.py へ push する。
 #      Streamlit Cloud が自動で再デプロイする（数分）。
 #   4. https://smartskin-survey-omiya.streamlit.app/?d=TEST を開き、
-#      「非常に満足」→ 口コミリンクが出て、八丁堀のGoogleページに飛ぶことを目視確認する。
-#      ※ 神保町・横浜のページに飛んだら即座に None へ戻すこと。
+#      「非常に満足」→ 口コミリンクが出て、大宮のGoogleページに飛ぶことを目視確認する。
+#      ※ 神保町・横浜・八丁堀のページに飛んだら即座に None へ戻すこと。
 #   5. README_顧客満足度システム_全体設計.md の該当箇所を「差替済」に更新する。
 #
 # 参考（発番済みの既存院）:
 #   神保町 = https://search.google.com/local/writereview?placeid=ChIJp_i6nMGNGGARn27uO0q54q8
 #   横浜   = https://search.google.com/local/writereview?placeid=ChIJ-_X7hphdGGAR8oyeKDHEM9Y
-REVIEW_URL = None
+REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJEQtDtRzBGGARz4j_--VnIo4"
 # ▲▲▲ 院別設定ここまで ▲▲▲
 
 def show_review_request():
